@@ -60,10 +60,10 @@ def askngrok(active_ngrok=True):
         print bcolors.get_fail_string("Incorrect tunnel: " + tunnel)
         tunnel = prompt(bcolors.get_question_string("What tunnel you would like to run?"), default="http").lower()
     
-    port = prompt(bcolors.get_question_string("What port you would like to run on?"), default="8000").lower()
+    port = prompt(bcolors.get_question_string("What port you would like to run on?"), default="5000").lower()
     while not port.isdigit():
         print bcolors.get_fail_string("Incorrect port: " + port)
-        port = prompt(bcolors.get_question_string("What port you would like to run on?"), default="8000").lower()
+        port = prompt(bcolors.get_question_string("What port you would like to run on?"), default="5000").lower()
     auth = prompt(bcolors.get_question_string("What is your auth token?"), default="None").lower()
     if auth == "none":
         auth = None
