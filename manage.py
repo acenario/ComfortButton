@@ -2,6 +2,7 @@ from flask_script import Server, Manager, prompt, prompt_bool
 from app import app
 from colors import bcolors
 from ngrok import NgrokTunnel
+from button import get_current_primary_path
 import ConfigParser
 import psutil
 import sys
@@ -13,7 +14,7 @@ manager.add_command("runserver", Server())
 
 ngrok_tunnel = None
 
-def loadngrok():
+def loadngrok(active_ngrok=True):
     config = ConfigParser.ConfigParser()
     config.read('config.ini')
 
@@ -31,7 +32,6 @@ def loadngrok():
     global ngrok_tunnel
     ngrok_tunnel = NgrokTunnel(tunnel,port,auth,subdomain)
     tunnel_url = ngrok_tunnel.start()
-    active_ngrok = True
 
     config.set('ngrok', 'active', True)
     config.set('ngrok', 'current_url', tunnel_url)
@@ -50,7 +50,7 @@ def loadngrok():
     while active_ngrok:
         pass
 
-def askngrok():
+def askngrok(active_ngrok=True):
     tunnels = ["http",
                 "tls",
                 "tcp"
@@ -71,7 +71,6 @@ def askngrok():
     global ngrok_tunnel
     ngrok_tunnel = NgrokTunnel(tunnel,port,auth,subdomain)
     tunnel_url = ngrok_tunnel.start()
-    active_ngrok = True
 
     config = ConfigParser.ConfigParser()
     config.read('config.ini')
@@ -138,12 +137,12 @@ def killngrok():
             print bcolors.get_fail_string("Killed existing ngrok process!")
 
 @manager.command
-def startngrok():
+def startngrok(active_ngrok=True):
     killngrok()
     configfile_name = "config.ini"
     if not os.path.isfile(configfile_name):
         createconfig()
-        askngrok()
+        askngrok(active_ngrok)
     else:
         config = ConfigParser.ConfigParser()
         config.read('config.ini')
@@ -155,21 +154,17 @@ def startngrok():
                 config.set('ngrok', 'use_config', True)
                 with open('config.ini', 'w') as configfile:
                     config.write(configfile)
-                loadngrok()
+                loadngrok(active_ngrok)
             else:
-                askngrok()
+                askngrok(active_ngrok)
         else:
-            loadngrok()
+            loadngrok(active_ngrok)
             
-
-    
-
 @manager.command
 def startbutton():
-    print "\n"
-    killngrok()
+    startngrok(active_ngrok=False)
+    print bcolors.get_ok_string("\nCurrent primary video: " + bcolors.get_underline_string(get_current_primary_path()))
     app.run()
-
 
 if __name__ == "__main__":
     try:
