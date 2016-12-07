@@ -20,12 +20,11 @@ Comfort Button requires ngrok added to path, or for it to be in your directory.
 
 Download and extract the [latest version of ngrok][ngrok] and add it to PATH.
 
-Or run these commands (Mac & Linux Users):
+Or run these commands (Mac & Linux Users) where you downloaded ngrok.
 
 ```sh
-$ cd ngroks
-$ cp ngrok-mac /usr/local/bin/ngrok
-$ cp ngrok-linux /usr/local/bin/ngrok
+$ unzip path/to/ngrok.zip
+$ cp ngrok /usr/local/bin/ngrok
 ```
 
 You can either install in a virtualenv or install globally. You can also checkout the venv branch if you do not want to install virtualenv.
