@@ -2,7 +2,7 @@ from flask_script import Server, Manager, prompt, prompt_bool
 from app import app
 from colors import bcolors
 from ngrok import NgrokTunnel
-from button import get_current_primary_path
+from button import load_primary_video
 import ConfigParser
 import psutil
 import sys
@@ -120,7 +120,8 @@ def createconfig():
         Config.set('ngrok', 'subdomain', 'pineapplepen')
         
         Config.add_section('button')
-        Config.set('button', 'primary_video', "~/Desktop/IRA_PERF.MOV")
+        Config.set('button', 'primary_video', "http://www.yourepeat.com/watch?v=99td8AsSkfQ")
+        #LOCAL VIDEO: /Users/Arjun/Desktop/IRA_PERF.MOV
 
         Config.write(cfgfile)
         cfgfile.close()
@@ -159,11 +160,15 @@ def startngrok(active_ngrok=True):
                 askngrok(active_ngrok)
         else:
             loadngrok(active_ngrok)
+
+@manager.command
+def openvideo():
+    open_file(get_current_primary_path())
             
 @manager.command
 def startbutton():
+    os.environ["FLASK_APP"] = "app.py"
     startngrok(active_ngrok=False)
-    print bcolors.get_ok_string("\nCurrent primary video: " + bcolors.get_underline_string(get_current_primary_path()))
     app.run()
 
 if __name__ == "__main__":
