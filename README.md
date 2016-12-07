@@ -16,6 +16,12 @@ The project accompanies a physical *"comfort button"* created by my friend [Nich
 
 ### Installation
 
+Download the project from Github.
+
+```sh
+$ git clone https://github.com/acenario/ComfortButton
+```
+
 Comfort Button requires ngrok added to path, or for it to be in your directory. 
 
 Download and extract the [latest version of ngrok][ngrok] and add it to PATH.
