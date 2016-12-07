@@ -12,6 +12,23 @@ manager.add_command("runserver", Server())
 ngrok_tunnel = None
 
 @manager.command
+def createconfig():
+    with open("config.yml", 'r+') as ymlfile:
+        cfg = yaml.load(ymlfile)
+        default_dict = {
+            "ngrok": [
+                {"port" : "8000"},
+                {"url": "url"}
+            ],
+            "button": [
+                {"active" : False},
+                {"video1" : "~/Desktop/IRA_PERF.MOV"}
+            ]
+        }
+        yaml.dump(default_dict, ymlfile)
+
+
+@manager.command
 def startngrok():
     tunnels = ["http",
                 "tls",
