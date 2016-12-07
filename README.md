@@ -10,7 +10,7 @@ This project is a self-contained flask project that launches ngrok and is able t
 > I see my love. She was so pure, beautiful, and wonderful.
 > --Arjun Bhatnagar
 
-The project accompanies a physical *"comfort button"* created by my friend [Nicholas Francisci] [Nick]. 
+The project accompanies a physical *"comfort button"* created by my friend [Nicholas Francisci] [Nick]. The button contains a "photon" board that sends a web request to the flask server running.
 
 [![N|Solid](http://i.imgur.com/WRHORqam.jpg?1)](https://irajaan.com)    [![N|Solid](http://i.imgur.com/2ij2ZTpm.jpg)](https://irajaan.com)
 
